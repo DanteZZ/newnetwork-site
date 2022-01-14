@@ -6,18 +6,16 @@ import dispatcher from "./dispatch.js";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "../header/Header.jsx";
-import Sidebar from "../sidebar/Sidebar.jsx";
 
 import Home from "../pages/home/Home.jsx";
 
 const Main = ({ isLoaded }) => {
-  return isLoaded ? (
+  return true ? (
     <>
       <Header />
       <Container fluid>
         <Row className="mt-5 pt-2" style={{ marginBottom: "6px" }} />
         <Row>
-          <Sidebar />
           <Col>
             <div className="p-3 pt-0">
               <Routes>
