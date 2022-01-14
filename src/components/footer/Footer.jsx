@@ -63,7 +63,7 @@ const Footer = () => {
           }
         </Row>
       </Container>
-      <Container fluid className="footer-bottom">
+      <Container fluid className="footer-bottom mt-3">
         <Container>
           <Row className="pt-3 pb-3">
             <Col>
