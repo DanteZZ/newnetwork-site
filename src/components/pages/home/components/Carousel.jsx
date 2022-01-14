@@ -10,7 +10,7 @@ const Slide = () => {
         <div className="slide-left">
           <img alt="tv" src={tv} />
         </div>
-        <div className="slide-right ps-3">
+        <div className="slide-right ps-3t">
           <div>
             <h2 className="pb-2">
               Бесплатное IP

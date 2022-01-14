@@ -3,6 +3,9 @@
 html,body {
   font-size:18px;
 }
+body {
+  padding-top:64px;
+}
 
 .htext {
   font-family: 'Montserrat', sans-serif;
@@ -83,6 +86,17 @@ html,body {
   padding-top:50px;
 }
 
+
+.slick-slide.slick-active {
+  & .slide-right {
+    animation: backInRight;
+    animation-duration: 1s;
+  }
+  & .slide-left {
+    animation: backInLeft;
+    animation-duration: 1s;
+  }
+}
 .slide-block {
   height:280px;
   background:$primary-gradient;
@@ -120,4 +134,21 @@ html,body {
       font-size: 1.8rem;
     }
   }
+}
+
+.footer-link {
+  font-size:16px;
+  color:#A0A0A0;
+  line-height: 1.7rem;
+  &:hover {
+    text-decoration: none;
+    color:theme-color("primary");
+  }
+}
+
+.footer-bottom {
+  background-color: #F5F5F5;
+  color: #9E9E9E;
+  font-size: 16px;
+line-height: 20px;
 }

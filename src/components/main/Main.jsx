@@ -6,25 +6,17 @@ import dispatcher from "./dispatch.js";
 import { Routes, Route } from "react-router-dom";
 
 import Header from "../header/Header.jsx";
-
+import Footer from "../footer/Footer.jsx";
 import Home from "../pages/home/Home.jsx";
 
 const Main = ({ isLoaded }) => {
   return true ? (
     <>
       <Header />
-      <Container fluid>
-        <Row className="mt-5 pt-2" style={{ marginBottom: "6px" }} />
-        <Row>
-          <Col>
-            <div className="p-3 pt-0">
-              <Routes>
-                <Route exact path="/" element={<Home />} />
-              </Routes>
-            </div>
-          </Col>
-        </Row>
-      </Container>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+        </Routes>
+      <Footer/>
     </>
   ) : (
     <>
