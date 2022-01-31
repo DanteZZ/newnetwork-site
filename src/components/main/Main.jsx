@@ -8,15 +8,17 @@ import { Routes, Route } from "react-router-dom";
 import Header from "../header/Header.jsx";
 import Footer from "../footer/Footer.jsx";
 import Home from "../pages/home/Home.jsx";
+import Services from "../pages/services/Services.jsx";
 
 const Main = ({ isLoaded }) => {
   return true ? (
     <>
       <Header />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-        </Routes>
-      <Footer/>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/services" element={<Services />} />
+      </Routes>
+      <Footer />
     </>
   ) : (
     <>
