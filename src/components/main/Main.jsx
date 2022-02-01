@@ -3,21 +3,30 @@ import { Container, Row, Spinner, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Header from "../header/Header.jsx";
 import Footer from "../footer/Footer.jsx";
+
 import Home from "../pages/home/Home.jsx";
 import Services from "../pages/services/Services.jsx";
+import Help from "../pages/help/Help.jsx";
 
 const Main = ({ isLoaded }) => {
+  const location = useLocation();
   return true ? (
     <>
       <Header />
-      <Routes>
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/services" element={<Services />} />
-      </Routes>
+      <TransitionGroup>
+        <CSSTransition key={location.key} classNames="fade" timeout={200}>
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/services" element={<Services />} />
+            <Route exact path="/help" element={<Help />} />
+          </Routes>
+        </CSSTransition>
+      </TransitionGroup>
       <Footer />
     </>
   ) : (

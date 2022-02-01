@@ -13,7 +13,7 @@ const Services = () => {
   return (
     <Container>
       <Row>
-        <Col className="mt-4">
+        <Col className="mt-5">
           <Packages />
           <Link to={"/"} className="intersect">
             <img src={intersect} alt="" />
