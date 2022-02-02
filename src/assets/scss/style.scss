@@ -370,3 +370,33 @@ line-height: 20px;
     }
   }
 }
+
+.content {
+  color:#716E6E;
+}
+
+.hover-lighten {
+  filter:brightness(1);
+  transition:.2s;
+  &:hover {
+    filter:brightness(1.1);
+  }
+}
+
+.bordered {
+  border-radius:6px;
+}
+
+.bg-grad-blue {
+  background:$blue-gradient;
+}
+.bg-grad-red {
+  background:$red-gradient;
+}
+.bg-grad-green {
+  background:$green-gradient;
+}
+
+.text-montserrat {
+  font-family: Montserrat;
+}
