@@ -12,6 +12,7 @@ import Footer from "../footer/Footer.jsx";
 import Home from "../pages/home/Home.jsx";
 import Services from "../pages/services/Services.jsx";
 import Help from "../pages/help/Help.jsx";
+import Calculator from "../pages/calculator/Calculator.jsx";
 
 const Main = ({ isLoaded }) => {
   const location = useLocation();
@@ -24,6 +25,7 @@ const Main = ({ isLoaded }) => {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/services" element={<Services />} />
             <Route exact path="/help" element={<Help />} />
+            <Route exact path="/calculator" element={<Calculator />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>

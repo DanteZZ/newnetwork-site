@@ -11,6 +11,7 @@ import dispatcher from "./dispatch.js";
 const Home = () => {
   return (
     <Container>
+      <h1 hidden>Главная</h1>
       <Carousel />
       <Row>
         <Col>
