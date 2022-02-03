@@ -5,6 +5,7 @@ import "toastify-js/src/toastify.css"
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 import 'animate.css';
+import 'rc-slider/assets/index.css';
 
 import './assets/scss/style.scss';
 

@@ -403,3 +403,131 @@ line-height: 20px;
 .text-montserrat {
   font-family: Montserrat;
 }
+
+
+.receipt-card {
+  position: relative;
+  padding:1em;
+  background: #FFFFFF;
+  border: 1px solid #F3F3F3;
+  box-sizing: border-box;
+  box-shadow: 0px 20px 11px rgba(0, 0, 0, 0.1);
+  &:after {
+    background: linear-gradient(130deg, #ffffff 16px, transparent 0), linear-gradient(230deg, #ffffff 16px, transparent 0);
+    background-position: left-bottom;
+    background-repeat: repeat-x;
+    background-size: 32px 32px;
+    background-position: 8px;
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: -32px;
+    left: 0px;
+    width: 100%;
+    height: 32px;
+  }
+}
+
+.receipt-card {
+  position:fixed;
+  .receipt-item {
+    display:flex;
+    margin-top:8px;
+    margin-bottom:8px;
+    justify-content: space-between;
+  }
+  .receipt-price {
+    display: flex;
+    align-items:center;
+    margin-left:1em;
+    color:theme-color("primary");
+    white-space: nowrap;
+  }
+}
+
+hr {
+  color:#3C3C3C;
+  &.dashed {
+    border:none;
+    border-top:1px dashed; 
+    background-color:#fff;
+    height:1px;
+    margin:0px;
+  }
+}
+
+.down-arrow-block {
+  width:100%;
+  height:100px;
+  background-image:url("../images/down_arrow.png");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.rc-slider-handle {
+  transition:.2s;
+}
+
+.rc-slider-mark-text {
+  font-family:Montserrat;
+  font-weight:700;
+  font-size:24px;
+  white-space: nowrap;
+  color:#515151;
+  transition:.2s;
+}
+.rc-slider-mark-text-active {
+  font-size:36px;
+  color:theme-color("primary")
+}
+
+.speed-select {
+  padding-left:10%;
+  padding-right:10%;
+}
+
+.equipment-item {
+  border-radius:8px;
+  cursor:pointer;
+  color:#454545;
+  font-family:Montserrat;
+  font-size:24px;
+  font-weight:bold;
+  position:relative;
+  background: linear-gradient(90deg, #E0E0E0 0%, #F7F7F7 100%);
+  transition:.2s;
+  margin-top:8px;
+  margin-bottom:8px;
+  height:149px;
+  &:hover {
+    color:theme-color("primary");
+    margin-top:0px;
+    margin-bottom:16px;
+    &.red {
+      color:#D62626;
+    }
+  }
+  &.active {
+    background:$blue-gradient;
+    color:white;
+    &.red {
+      background:$red-gradient;
+    }
+    &:hover {
+      color:white;
+    }
+  }
+  .equipment-name {
+    display:flex;
+    flex-direction: column-reverse;
+    float:right;
+    height:149px;
+    padding:16px;
+    text-align:right;
+  }
+  &.none {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+}
