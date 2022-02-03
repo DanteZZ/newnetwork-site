@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-const Package = ({ variant, speed, pay }) => {
+const Package = ({ variant, speed, pay, link }) => {
   return (
-    <Col lg="3" className="mb-4">
+    <Col lg="3" className="mb-4" as={Link} to={link}>
       <Card className={"package-item variant-" + variant}>
         <Card.Body>
           <div className="item--speed">
@@ -70,7 +71,7 @@ export const Packages = ({ title }) => {
           </div>
         </Col>
         {packages.map((inf, i) => (
-          <Package {...inf} index={i} />
+          <Package {...inf} index={i} link="/calculator" />
         ))}
       </Row>
     </>

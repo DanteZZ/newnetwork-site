@@ -16,7 +16,7 @@ const Services = () => {
         <Col className="mt-5">
           <h1 hidden>Тарифы</h1>
           <Packages />
-          <Link to={"/"} className="intersect">
+          <Link to={"/calculator"} className="intersect">
             <img src={intersect} alt="" />
             Подобрать собственный тариф
           </Link>
