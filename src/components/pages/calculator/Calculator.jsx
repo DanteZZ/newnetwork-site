@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Switch from "react-switch";
+import MaskedInput from "react-maskedinput";
 
 import { connect } from "react-redux";
 import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
 
-import wifi_standart from "../../../assets/images/wifi_standart.png";
+import { routers, tvs, pricelist } from "../../../configs/data.js";
+
+const format = (number) =>
+  new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB" }).format(
+    number
+  );
 
 const MaterialSwitch = (props) => (
   <Switch
@@ -24,10 +30,71 @@ const MaterialSwitch = (props) => (
   />
 );
 
-const Calculator = () => {
+const Calculator = ({
+  address,
+  name,
+  phone,
+  speed,
+  router,
+  router_rent,
+  tv,
+  tv_rent,
+  updateAddress,
+  updateName,
+  updatePhone,
+  updateSpeed,
+  updateRouter,
+  updateRouterRent,
+  updateTv,
+  updateTvRent,
+}) => {
+  const [prices] = useState(pricelist);
+
+  const receipt = useMemo(() => {
+    const rub_m = "мес";
+    const list = [];
+    let all = 0;
+    let all_rent = 0;
+
+    list.push(["Подключение интернета", "Бесплатно"]);
+
+    list.push(["Интернет", `${format(prices.speeds[speed])}/${rub_m}`]);
+    all_rent += prices.speeds[speed];
+
+    if (router) {
+      list.push([
+        "Wi-Fi Роутер",
+        router_rent
+          ? `${format(prices.routers_rent[router])}/${rub_m}`
+          : `${format(prices.routers[router])}`,
+      ]);
+      if (router_rent) {
+        all_rent += prices.routers_rent[router];
+      } else {
+        all += prices.routers[router];
+      }
+    }
+
+    if (tv) {
+      list.push([
+        "ТВ-Приставка",
+        tv_rent
+          ? `${format(prices.tvs_rent[tv])}/${rub_m}`
+          : `${format(prices.tvs[tv])}`,
+      ]);
+      if (tv_rent) {
+        all_rent += prices.tvs_rent[tv];
+      } else {
+        all += prices.tvs[tv];
+      }
+    }
+
+    return { list, all: format(all), all_rent: format(all_rent) };
+  }, [prices, speed, router, router_rent, tv, tv_rent]);
+
   return (
     <Container>
-      <Row>
+      <Row className="mb-4">
         <Col className="mt-4 mb-4" lg="12">
           <h1 className="h3">Подберите условия для вас</h1>
         </Col>
@@ -46,6 +113,8 @@ const Calculator = () => {
                     type="text"
                     className="bordered"
                     placeholder="Введите адрес вашего дома"
+                    value={address}
+                    onChange={(v) => updateAddress(v.target.value)}
                   />
                 </Form.Group>
                 <Row>
@@ -55,7 +124,9 @@ const Calculator = () => {
                       <Form.Control
                         type="text"
                         className="bordered"
-                        placeholder="Введите адрес вашего дома"
+                        placeholder="Введите ваше имя"
+                        value={name}
+                        onChange={(v) => updateName(v.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -64,8 +135,12 @@ const Calculator = () => {
                       <Form.Label className="mb-1">Номер телефона</Form.Label>
                       <Form.Control
                         type="text"
+                        as={MaskedInput}
+                        mask="+7 (111) 111-11-11"
                         className="bordered"
-                        placeholder="Введите адрес вашего дома"
+                        placeholder="+7 (123) 456-78-90"
+                        value={phone}
+                        onChange={(v) => updatePhone(v.target.value)}
                       />
                     </Form.Group>
                   </Col>
@@ -79,7 +154,8 @@ const Calculator = () => {
             <Slider
               min={0}
               max={2}
-              defaultValue={0}
+              value={speed}
+              onChange={updateSpeed}
               marks={{
                 0: (
                   <>
@@ -131,24 +207,70 @@ const Calculator = () => {
             <div className="h5 text-primary">Wi-Fi Роутер</div>
             <span className="d-flex align-items-center content">
               <span className="me-2">Взять в аренду</span>
-              <MaterialSwitch checked={true} />
+              <MaterialSwitch
+                checked={router_rent}
+                onChange={updateRouterRent}
+              />
             </span>
           </div>
           <Row className="equipment-list">
-            <Col lg="4">
-              <div className="equipment-item active">
-                <img src={wifi_standart} alt="" />
-                <span className="equipment-name">Обычный</span>
+            {routers.map(({ tag, title, image }) => (
+              <Col lg="4" key={tag} onClick={() => updateRouter(tag)}>
+                <div
+                  className={
+                    router === tag ? "equipment-item active" : "equipment-item"
+                  }
+                >
+                  <img src={image} alt="" />
+                  <span className="equipment-name">{title}</span>
+                </div>
+              </Col>
+            ))}
+            <Col lg="4" onClick={() => updateRouter(null)}>
+              <div
+                className={
+                  router === null
+                    ? "equipment-item none active"
+                    : "equipment-item none"
+                }
+              >
+                Не требуется
               </div>
             </Col>
-            <Col lg="4">
-              <div className="equipment-item">
-                <img src={wifi_standart} alt="" />
-                <span className="equipment-name">Обычный</span>
+          </Row>
+
+          <div className="d-flex justify-content-between mt-4 mb-3">
+            <div className="h5 text-primary">TV-Приставка</div>
+            <span className="d-flex align-items-center content">
+              <span className="me-2">Взять в аренду</span>
+              <MaterialSwitch checked={tv_rent} onChange={updateTvRent} />
+            </span>
+          </div>
+          <Row className="equipment-list">
+            {tvs.map(({ tag, title, image }) => (
+              <Col lg="4" key={tag} onClick={() => updateTv(tag)}>
+                <div
+                  className={
+                    tv === tag
+                      ? "equipment-item red active"
+                      : "equipment-item red"
+                  }
+                >
+                  <img src={image} alt="" />
+                  <span className="equipment-name">{title}</span>
+                </div>
+              </Col>
+            ))}
+            <Col lg="4" onClick={() => updateTv(null)}>
+              <div
+                className={
+                  tv === null
+                    ? "equipment-item red none active"
+                    : "equipment-item red none"
+                }
+              >
+                Не требуется
               </div>
-            </Col>
-            <Col lg="4">
-              <div className="equipment-item none">Не требуется</div>
             </Col>
           </Row>
         </Col>
@@ -156,34 +278,29 @@ const Calculator = () => {
           <div className="receipt-card content">
             <p className="h5 text-center">Чек-лист</p>
             <hr className="mb-0" />
-            <div className="receipt-item">
-              <div className="receipt-position">Подключение интернета</div>
-              <div className="receipt-price">Бесплатно</div>
-            </div>
-            <hr className="dashed" />
-            <div className="receipt-item">
-              <div className="receipt-position">Wi-Fi Роутер</div>
-              <div className="receipt-price">1 500 руб.</div>
-            </div>
-            <hr className="dashed" />
-            <div className="receipt-item">
-              <div className="receipt-position">ТВ-Приставка</div>
-              <div className="receipt-price">3 000 руб.</div>
-            </div>
+            {receipt.list.map(([position, price], i) => (
+              <>
+                {i > 0 && <hr className="dashed" />}
+                <div className="receipt-item">
+                  <div className="receipt-position">{position}</div>
+                  <div className="receipt-price">{price}</div>
+                </div>
+              </>
+            ))}
             <hr />
 
             <div className="receipt-item">
               <div className="receipt-position">
                 <strong>Итого:</strong>
               </div>
-              <div className="receipt-price">1 500 руб.</div>
+              <div className="receipt-price">{receipt.all}</div>
             </div>
             <hr className="dashed" />
             <div className="receipt-item">
               <div className="receipt-position">
                 <strong>Ежемесячный платёж:</strong>
               </div>
-              <div className="receipt-price">3 000 руб.</div>
+              <div className="receipt-price">{receipt.all_rent}</div>
             </div>
             <center>
               <Button className="btn-gradient-primary ps-4 pe-4 mt-3">
@@ -192,6 +309,22 @@ const Calculator = () => {
             </center>
           </div>
         </Col>
+      </Row>
+      <Row>
+        <hr />
+        <p className="content">
+          При нажатии на кнопку “Оформить заявку”, вы соглашаетесь с{" "}
+          <Link to="/pages/privacy">
+            условиями обработки персональных данных
+          </Link>
+          .
+          <br />
+          После оформления заявки с вами свяжется наш менеджер для уточнения
+          информации.
+          <br />
+          Спасибо что выбрали нас
+        </p>
+        <hr />
       </Row>
     </Container>
   );

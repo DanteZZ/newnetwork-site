@@ -430,6 +430,7 @@ line-height: 20px;
 
 .receipt-card {
   position:fixed;
+  z-index: 999;
   .receipt-item {
     display:flex;
     margin-top:8px;
@@ -499,6 +500,9 @@ hr {
   margin-top:8px;
   margin-bottom:8px;
   height:149px;
+  img {
+    position:absolute;
+  }
   &:hover {
     color:theme-color("primary");
     margin-top:0px;
@@ -523,7 +527,9 @@ hr {
     float:right;
     height:149px;
     padding:16px;
+    padding-left:100px;
     text-align:right;
+    white-space: pre;
   }
   &.none {
     display:flex;
