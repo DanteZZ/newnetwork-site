@@ -13,6 +13,7 @@ import Home from "../pages/home/Home.jsx";
 import Services from "../pages/services/Services.jsx";
 import Help from "../pages/help/Help.jsx";
 import Calculator from "../pages/calculator/Calculator.jsx";
+import Page from "../pages/page/Page.jsx";
 
 const Main = ({ isLoaded }) => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const Main = ({ isLoaded }) => {
             <Route exact path="/services" element={<Services />} />
             <Route exact path="/help" element={<Help />} />
             <Route exact path="/calculator" element={<Calculator />} />
+            <Route exact path="/pages/:pageName" element={<Page />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>
