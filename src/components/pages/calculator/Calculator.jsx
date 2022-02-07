@@ -150,12 +150,13 @@ const Calculator = ({
           </Card>
           <div className="down-arrow-block" />
           <div className="h4 text-center mb-5">Выберите скорость интернета</div>
-          <div className="speed-select">
+          <div className="speed-select d-none d-sm-block">
             <Slider
               min={0}
               max={2}
               value={speed}
               onChange={updateSpeed}
+              className="d-xs-none"
               marks={{
                 0: (
                   <>
@@ -201,6 +202,60 @@ const Calculator = ({
               Подойдёт для постоянного использования интернета с ПК и ТВ
             </div>
           </div>
+
+          <div className="speed-select d-sm-none d-xs-block">
+            <Slider
+              min={0}
+              max={2}
+              value={speed}
+              onChange={updateSpeed}
+              vertical
+              reverse
+              marks={{
+                0: (
+                  <>
+                    30 <small>мбит/с</small>
+                  </>
+                ),
+                1: (
+                  <>
+                    50 <small>мбит/с</small>
+                  </>
+                ),
+                2: (
+                  <>
+                    100 <small>мбит/с</small>
+                  </>
+                ),
+              }}
+              included={false}
+              step={null}
+              trackStyle={{ backgroundColor: "#5971DD", height: 6 }}
+              railStyle={{ backgroundColor: "#E2E2E2", height: 6 }}
+              handleStyle={{
+                borderColor: "#5971DD",
+                height: 26,
+                width: 26,
+                backgroundColor: "#5971DD",
+                left:0
+              }}
+              dotStyle={{
+                borderColor: "#E2E2E2",
+                height: 14,
+                width: 14,
+                backgroundColor: "#E2E2E2",
+                marginLeft: "-7px"
+              }}
+              activeDotStyle={{
+                backgroundColor: "#5971DD",
+                borderColor: "#5971DD",
+                left:"0px"
+              }}
+            />
+            <div className="text-center content mt-5 pt-3">
+              Подойдёт для постоянного использования интернета с ПК и ТВ
+            </div>
+          </div>
           <div className="down-arrow-block" />
           <div className="h4">Оборудование</div>
           <div className="d-flex justify-content-between mt-4 mb-3">
@@ -215,7 +270,7 @@ const Calculator = ({
           </div>
           <Row className="equipment-list">
             {routers.map(({ tag, title, image }) => (
-              <Col lg="4" sm="6" xs="6" key={tag} onClick={() => updateRouter(tag)}>
+              <Col lg="4" sm="6" xs="12" key={tag} onClick={() => updateRouter(tag)}>
                 <div
                   className={
                     router === tag ? "equipment-item active" : "equipment-item"
@@ -226,7 +281,7 @@ const Calculator = ({
                 </div>
               </Col>
             ))}
-            <Col lg="4" sm="6" xs="6" onClick={() => updateRouter(null)}>
+            <Col lg="4" sm="6" xs="12" onClick={() => updateRouter(null)}>
               <div
                 className={
                   router === null
@@ -248,7 +303,7 @@ const Calculator = ({
           </div>
           <Row className="equipment-list">
             {tvs.map(({ tag, title, image }) => (
-              <Col lg="4" sm="6" xs="6" key={tag} onClick={() => updateTv(tag)}>
+              <Col lg="4" sm="6" xs="12" key={tag} onClick={() => updateTv(tag)}>
                 <div
                   className={
                     tv === tag
@@ -261,7 +316,7 @@ const Calculator = ({
                 </div>
               </Col>
             ))}
-            <Col lg="4" sm="6" xs="6" onClick={() => updateTv(null)}>
+            <Col lg="4" sm="6" xs="12" onClick={() => updateTv(null)}>
               <div
                 className={
                   tv === null

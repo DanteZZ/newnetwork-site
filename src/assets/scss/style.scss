@@ -546,24 +546,15 @@ a, a:hover {
 }
 
 @media (max-width: 992px) {
-  .intersect {
-    font-size:21px;
-    padding-left:27%;
-    padding-right:64px;
-    &:hover {
-      font-size:24px;
-      padding-left:27%;
-    }
-  }
   .slide-block {
     overflow:hidden;
     .slide-left {
-      img {
-        background-size:contain;
-      }
+      display:none;
     }
     .slide-right {
-      width:70%;
+      padding:16px;
+      width:100%;
+      text-align:center;
       h2 {
         font-size:24px;
       }
@@ -578,7 +569,6 @@ a, a:hover {
     }
     .special-image {
       background-size:contain;
-      
       &.right {
         &:hover {
           background-position:135%;
@@ -587,9 +577,9 @@ a, a:hover {
       }
       &.left {
         &:hover {
-          background-position:-35%;
+          background-position: -35%;
         }
-        background-position:-40%;
+        background-position: -40%;
       }
     }
   }
@@ -606,6 +596,7 @@ a, a:hover {
 
   .item--pay {
     padding-left: 16px;
+    white-space: nowrap;
   }
   .item--payname {
     font-size:18px!important;
@@ -634,9 +625,11 @@ a, a:hover {
     }
     .receipt-order {
       margin-left:18px;
-      width:130px;
       border-radius:4px;
-      margin-top:12px!important;
+      height: 80%;
+      padding: 0px!important;
+      width: 102px;
+      margin-top: 10%!important;
     }
     hr {
       display:none;
@@ -665,6 +658,47 @@ a, a:hover {
     padding-right:64px;
     .rc-slider-mark-text-active {
       font-size:25px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .speed-select {
+    height: 158px;
+    padding:0px!important;
+    display:flex;
+    justify-content: space-between;
+    .text-center {
+      width: 42%;
+      display: flex;
+      align-items: center;
+      margin-top: 0px!important;
+    }
+  }
+  .rc-slider-vertical .rc-slider-mark {
+    top: -10px;
+    left: 34px;
+    height: 100%;
+  }
+
+  .rc-slider-rail {
+    height: 100%!important;
+  }
+
+  .special-item {
+    .special-image {
+      &.right {
+        &:hover {
+          background-position:290%;
+        }
+        background-position:300%;
+      }
+      &.left {
+        &:hover {
+          background-position: -200%;
+        }
+        background-position: -195%;
+      }
     }
   }
 }
