@@ -9,6 +9,8 @@ import { SET_ROUTER_RENT, MutateRouterRent } from './actions/updateRouterRent'
 import { SET_TV, MutateTv } from './actions/updateTv'
 import { SET_TV_RENT, MutateTvRent } from './actions/updateTvRent'
 
+import { SET_CALCULATOR, MutateCalculator } from './actions/updateCalculator'
+
 export default function Reducer(state = DefaultState, { type, payload }) {
     switch (type) {
         case SET_ADDRESS:
@@ -27,6 +29,8 @@ export default function Reducer(state = DefaultState, { type, payload }) {
             return MutateTv(state, payload)
         case SET_TV_RENT:
             return MutateTvRent(state, payload)
+        case SET_CALCULATOR:
+            return MutateCalculator(state, payload)
         default:
             return state
   }

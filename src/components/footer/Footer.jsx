@@ -52,7 +52,7 @@ const Footer = () => {
       <Container className="mt-5">
         <Row>
           {
-            list.map(({title, childs}) => <Col>
+            list.map(({title, childs}) => <Col xs="6">
               <h5>{title}</h5>
               <ul class="list-unstyled">
                 {childs.map(({link,title})=><li>

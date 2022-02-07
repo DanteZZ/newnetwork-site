@@ -7,7 +7,7 @@ import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
 
 import { help_phone, help_info } from "../../../configs/data";
-import { HelpCategory } from "./components/HelpCategory.jsx";
+import { HelpCategory } from "./components/helpCategory.jsx";
 
 const Help = () => {
   return (

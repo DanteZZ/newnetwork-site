@@ -13,6 +13,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { Provider } from 'react-redux'
 import Store from './.store/store'
+import ScrollToTop from "./components/shared/ScrollToTop";
 
 // Since we are using HtmlWebpackPlugin WITHOUT a template, we should create our own root node in the body element before rendering into it
 let root = document.createElement('div')
@@ -24,6 +25,7 @@ document.body.appendChild(root);
 render(
     <Provider store={Store}>
         <Router>
+            <ScrollToTop />
             <Main />
         </Router>
     </Provider>

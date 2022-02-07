@@ -18,7 +18,7 @@ const Header = () => {
   ];
 
   return (
-    <Navbar className="header pe-0 d-flex" fixed="top" expand="lg">
+    <Navbar className="header pe-0 d-flex" fixed="top" collapseOnSelect expand="lg">
       <Navbar.Brand className="logo cursor-pointer">
         <img
           src={logo}

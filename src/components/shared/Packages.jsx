@@ -2,9 +2,12 @@ import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-const Package = ({ variant, speed, pay, link }) => {
+import { connect } from "react-redux";
+import { UpdateCalculator } from "../../.store/calculator/actions/updateCalculator.js";
+
+const Package = ({ variant, speed, pay, link, onClick }) => {
   return (
-    <Col lg="3" className="mb-4" as={Link} to={link}>
+    <Col lg="3" className="mb-4" as={Link} to={link} onClick={onClick}>
       <Card className={"package-item variant-" + variant}>
         <Card.Body>
           <div className="item--speed">
@@ -18,7 +21,7 @@ const Package = ({ variant, speed, pay, link }) => {
           </ul>
         </Card.Body>
         <Card.Footer>
-          <small>Абонентская плата</small>
+          <small className="item--payname">Абонентская плата</small>
           <div className="item--pay">
             {pay} <div className="item--pay-mark">р./мес</div>
           </div>
@@ -28,22 +31,25 @@ const Package = ({ variant, speed, pay, link }) => {
   );
 };
 
-export const Packages = ({ title }) => {
+const Packages = ({ title, updateCalculator }) => {
   const packages = [
     {
       variant: "none",
       speed: 30,
       pay: 500,
+      speedId:0
     },
     {
       variant: "blue",
       speed: 50,
       pay: 700,
+      speedId:1
     },
     {
       variant: "purple",
       speed: 100,
       pay: 900,
+      speedId:2
     },
   ];
   return (
@@ -71,9 +77,13 @@ export const Packages = ({ title }) => {
           </div>
         </Col>
         {packages.map((inf, i) => (
-          <Package {...inf} index={i} link="/calculator" />
+          <Package {...inf} index={i} link="/calculator" onClick={()=>updateCalculator(inf.speedId)} />
         ))}
       </Row>
     </>
   );
 };
+
+export default connect(()=>{}, dispatch=>({
+  updateCalculator: speed => dispatch(UpdateCalculator(speed))
+}))(Packages);

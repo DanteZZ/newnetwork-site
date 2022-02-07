@@ -541,3 +541,130 @@ hr {
 a, a:hover {
   text-decoration: none!important;
 }
+.slick-slider {
+  overflow:hidden;
+}
+
+@media (max-width: 992px) {
+  .intersect {
+    font-size:21px;
+    padding-left:27%;
+    padding-right:64px;
+    &:hover {
+      font-size:24px;
+      padding-left:27%;
+    }
+  }
+  .slide-block {
+    overflow:hidden;
+    .slide-left {
+      img {
+        background-size:contain;
+      }
+    }
+    .slide-right {
+      width:70%;
+      h2 {
+        font-size:24px;
+      }
+    }
+  }
+  .special-item {
+    height:300px;
+
+    .special-text {
+      padding:18px;
+      flex: 1.5 0;
+    }
+    .special-image {
+      background-size:contain;
+      
+      &.right {
+        &:hover {
+          background-position:135%;
+        }
+        background-position:140%;
+      }
+      &.left {
+        &:hover {
+          background-position:-35%;
+        }
+        background-position:-40%;
+      }
+    }
+  }
+  .package-about--info {
+    display:flex;
+    .package-about--iteminfo {
+      padding-right:32px;
+    }
+  }
+  .package-item .card-footer {
+    display:flex;
+    align-items:center;
+  }
+
+  .item--pay {
+    padding-left: 16px;
+  }
+  .item--payname {
+    font-size:18px!important;
+    flex-grow:1;
+  }
+  .equipment-name, .equipment-item.none {
+    font-size:19px;
+  }
+  .receipt-card {
+    bottom:0px;
+    width:100%;
+    left:0px;
+    padding-top:8px;
+    padding-bottom:8px;
+    box-shadow: 0px -12px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px 8px 0px 0px;
+    padding-top:40px;
+    .prices {
+      display:flex;
+    }
+    .receipt-first {
+      display:none;
+    }
+    .receipt-second {
+      flex-grow:1;
+    }
+    .receipt-order {
+      margin-left:18px;
+      width:130px;
+      border-radius:4px;
+      margin-top:12px!important;
+    }
+    hr {
+      display:none;
+      &.dashed {
+        display:block;
+      }
+    }
+    .h5 {
+      text-align:left!important;
+      margin:0px!important;
+      border-bottom:1px solid #d9d9d9;
+      padding-bottom:8px;
+      font-size:18px;
+      position:absolute;
+      top:8px;
+      left:0px;
+      padding-left:16px;
+      width:100%;
+    }
+    .receipt-item {
+      margin: 4px 0px;
+    }
+  }
+  .speed-select {
+    padding-left:64px;
+    padding-right:64px;
+    .rc-slider-mark-text-active {
+      font-size:25px;
+    }
+  }
+}

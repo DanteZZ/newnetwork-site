@@ -118,7 +118,7 @@ const Calculator = ({
                   />
                 </Form.Group>
                 <Row>
-                  <Col>
+                  <Col md="6" sm="12">
                     <Form.Group>
                       <Form.Label className="mb-1">Как вас зовут?</Form.Label>
                       <Form.Control
@@ -215,7 +215,7 @@ const Calculator = ({
           </div>
           <Row className="equipment-list">
             {routers.map(({ tag, title, image }) => (
-              <Col lg="4" key={tag} onClick={() => updateRouter(tag)}>
+              <Col lg="4" sm="6" xs="6" key={tag} onClick={() => updateRouter(tag)}>
                 <div
                   className={
                     router === tag ? "equipment-item active" : "equipment-item"
@@ -226,7 +226,7 @@ const Calculator = ({
                 </div>
               </Col>
             ))}
-            <Col lg="4" onClick={() => updateRouter(null)}>
+            <Col lg="4" sm="6" xs="6" onClick={() => updateRouter(null)}>
               <div
                 className={
                   router === null
@@ -248,7 +248,7 @@ const Calculator = ({
           </div>
           <Row className="equipment-list">
             {tvs.map(({ tag, title, image }) => (
-              <Col lg="4" key={tag} onClick={() => updateTv(tag)}>
+              <Col lg="4" sm="6" xs="6" key={tag} onClick={() => updateTv(tag)}>
                 <div
                   className={
                     tv === tag
@@ -261,7 +261,7 @@ const Calculator = ({
                 </div>
               </Col>
             ))}
-            <Col lg="4" onClick={() => updateTv(null)}>
+            <Col lg="4" sm="6" xs="6" onClick={() => updateTv(null)}>
               <div
                 className={
                   tv === null
@@ -278,35 +278,41 @@ const Calculator = ({
           <div className="receipt-card content">
             <p className="h5 text-center">Чек-лист</p>
             <hr className="mb-0" />
-            {receipt.list.map(([position, price], i) => (
-              <>
-                {i > 0 && <hr className="dashed" />}
+            <div className="prices">
+              <div className="receipt-first">
+                {receipt.list.map(([position, price], i) => (
+                  <>
+                    {i > 0 && <hr className="dashed" />}
+                    <div className="receipt-item">
+                      <div className="receipt-position">{position}</div>
+                      <div className="receipt-price">{price}</div>
+                    </div>
+                  </>
+                ))}
+              <hr />
+              </div>
+            
+              <div className="receipt-second">
                 <div className="receipt-item">
-                  <div className="receipt-position">{position}</div>
-                  <div className="receipt-price">{price}</div>
+                  <div className="receipt-position">
+                    <strong>Итого:</strong>
+                  </div>
+                  <div className="receipt-price">{receipt.all}</div>
                 </div>
-              </>
-            ))}
-            <hr />
-
-            <div className="receipt-item">
-              <div className="receipt-position">
-                <strong>Итого:</strong>
+                <hr className="dashed" />
+                <div className="receipt-item">
+                  <div className="receipt-position">
+                    <strong>Ежемесячный платёж:</strong>
+                  </div>
+                  <div className="receipt-price">{receipt.all_rent}</div>
+                </div>
               </div>
-              <div className="receipt-price">{receipt.all}</div>
+              <center>
+                <Button className="btn-gradient-primary ps-4 pe-4 mt-3 receipt-order">
+                  Оформить заявку
+                </Button>
+              </center>
             </div>
-            <hr className="dashed" />
-            <div className="receipt-item">
-              <div className="receipt-position">
-                <strong>Ежемесячный платёж:</strong>
-              </div>
-              <div className="receipt-price">{receipt.all_rent}</div>
-            </div>
-            <center>
-              <Button className="btn-gradient-primary ps-4 pe-4 mt-3">
-                Оформить заявку
-              </Button>
-            </center>
           </div>
         </Col>
       </Row>

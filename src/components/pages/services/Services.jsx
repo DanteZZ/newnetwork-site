@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { Packages } from "../../shared/Packages.jsx";
+import Packages from "../../shared/Packages.jsx";
 import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
 
