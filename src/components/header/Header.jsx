@@ -13,13 +13,18 @@ const Header = () => {
   const navs = [
     { to: "/", title: "Интернет" },
     { to: "/services", title: "Пакеты услуг" },
-    { to: "/tv", title: "Онлайн-ТВ" },
+    { to: "/pages/tv", title: "Онлайн-ТВ" },
     { to: "/help", title: "Помощь" },
   ];
 
   return (
-    <Navbar className="header pe-0 d-flex" fixed="top" collapseOnSelect expand="lg">
-      <Navbar.Brand className="logo cursor-pointer">
+    <Navbar
+      className="header pe-0 d-flex"
+      fixed="top"
+      collapseOnSelect
+      expand="lg"
+    >
+      <Navbar.Brand className="logo cursor-pointer" as={Link} to="/">
         <img
           src={logo}
           className="d-inline-block align-top logo__image"
@@ -42,11 +47,31 @@ const Header = () => {
           ))}
         </Nav>
         <div className="justify-content-end">
-          <Button variant="gradient-primary" className="me-2">
+          <Button
+            as={Link}
+            to="/services"
+            variant="gradient-primary"
+            className="me-2"
+          >
             Хочу стать абонентом
           </Button>
-          <NavDropdown title="Личный кабинет" className="d-inline-block">
-            <NavDropdown.Item>Выйти</NavDropdown.Item>
+          <NavDropdown
+            title="Абонентам"
+            className="d-inline-block dropdown-abonents"
+          >
+            <NavDropdown.Item
+              as={Link}
+              to="//lk.new-network.ru/"
+              target="_blank"
+            >
+              Личный кабинет
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              as={Link}
+              to="/help"
+            >
+              Помощь
+            </NavDropdown.Item>
           </NavDropdown>
         </div>
       </Navbar.Collapse>

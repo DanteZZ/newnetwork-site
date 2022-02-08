@@ -660,6 +660,18 @@ a, a:hover {
       font-size:25px;
     }
   }
+  .intersect {
+    font-size:24px;
+    padding-left:35%;
+    line-height:1em;
+  }
+}
+
+.dropdown-abonents {
+  .dropdown-menu {
+    left:auto;
+    right:16px;
+  }
 }
 
 @media (max-width: 576px) {

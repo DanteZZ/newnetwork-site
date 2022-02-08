@@ -8,42 +8,42 @@ import { connect } from "react-redux";
 import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
 
-const Footer = () => {
+const Footer = ({updateCalculator}) => {
   const list = [
     {
       title:"Интернет",
       childs: [
-        {title:"Подключить интернет", link:"/"},
-        {title:"Подключить интернет + ТВ", link:"/"},
-        {title:"Калькулятор услуг", link:"/"},
-        {title:"Условия договора", link:"/"},
-        {title:"Проверить возможность подключения", link:"/"},
+        {title:"Подключить интернет", link:"/services"},
+        {title:"Подключить интернет + ТВ", link:"/services"},
+        {title:"Калькулятор услуг", link:"/calculator"},
+        {title:"Политика конфиденциальности", link:"/pages/privacy"},
+        {title:"Проверить возможность подключения", link:"/calculator"},
       ]
     },
     {
       title:"Оборудование",
       childs: [
-        {title:"WI-FI Роутер", link:"/"},
-        {title:"ТВ-приставка", link:"/"},
-        {title:"Аренда оборудования", link:"/"},
+        {title:"WI-FI Роутер", link:"/pages/wifi"},
+        {title:"ТВ-приставка", link:"/pages/tv"},
+        {title:"Аренда оборудования", link:"/pages/rent"},
       ]
     },
     {
       title:"Тарифы и услуги",
       childs: [
-        {title:"Интернет - 30", link:"/"},
-        {title:"Интернет - 50", link:"/"},
-        {title:"Интернет - 100", link:"/"},
-        {title:"Белый IP-адрес", link:"/"},
+        {title:"Интернет - 30", link:"/calculator", selectSpeed:0},
+        {title:"Интернет - 50", link:"/calculator", selectSpeed:1},
+        {title:"Интернет - 100", link:"/calculator", selectSpeed:2},
+        {title:"Белый IP-адрес", link:"/pages/whiteip"},
       ]
     },
     {
       title:"Клиентам",
       childs: [
-        {title:"Тех. поддержка", link:"/"},
-        {title:"Личный кабинет", link:"/"},
-        {title:"Оплата услуг", link:"/"},
-        {title:"Помощь", link:"/"},
+        {title:"Тех. поддержка", link:"/help"},
+        {title:"Личный кабинет", link:"//lk.new-network.ru", target:"_blank"},
+        {title:"Оплата услуг", link:"//lk.new-network.ru", target:"_blank"},
+        {title:"Помощь", link:"/help"},
       ]
     }
   ]
@@ -55,8 +55,9 @@ const Footer = () => {
             list.map(({title, childs}) => <Col md="3" sm="6" xs="12">
               <h5>{title}</h5>
               <ul class="list-unstyled">
-                {childs.map(({link,title})=><li>
-                    <Link to={link} className="footer-link">{title}</Link>
+                {childs.map(({link,title,target, selectSpeed})=>
+                  <li>
+                    <Link to={link} target={target} onClick={()=>{if (selectSpeed !== null) {updateCalculator(selectSpeed)} }} className="footer-link">{title}</Link>
                   </li>)}
               </ul>
             </Col>)

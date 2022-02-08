@@ -1,25 +1,8 @@
 {
-  "short_name": "HomeLib",
-  "name": "Ваша домашняя библиотека",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
+  "short_name": "Новые Сети",
+  "name": "Интернет в ваш дом",
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#fd9137",
+  "theme_color": "#5679E7",
   "background_color": "#ffffff"
 }
