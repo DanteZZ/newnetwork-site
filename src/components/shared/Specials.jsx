@@ -13,14 +13,14 @@ const Special = ({variant,title,image,items, index}) => {
     <Col lg="6" className="mb-4">
       <div className={"special-item "+variant}>
         <Row style={{backgroundImage:`url(${image})`}} className={isLeft ? "special-image m-0 cursor-pointer left" : "special-image m-0 cursor-pointer right"}>
-          {isLeft && <Col sm="12"/>}
+          {isLeft && <Col md="6" sm="12"/>}
           <Col className={isLeft ? "special-text text-end" : "special-text"}>
             <h4>{title}</h4>
             <ul class="list-unstyled mb-0">
               {items.map((item)=><li>{item}</li>)}
             </ul>
           </Col>
-          {!isLeft && <Col sm="12"/>}
+          {!isLeft && <Col  md="6" sm="12"/>}
         </Row>
       </div>
     </Col>

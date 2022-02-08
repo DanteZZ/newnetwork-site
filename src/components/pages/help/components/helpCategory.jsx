@@ -3,8 +3,8 @@ import { Col, Row, Card, CloseButton } from "react-bootstrap";
 
 const HelpItem = ({ name, onClick }) => {
   return (
-    <Col>
-      <Card onClick={onClick}>
+    <Col sm="12" md="6" lg="3">
+      <Card className="mb-3" onClick={onClick}>
         <Card.Body className="bg-light bordered cursor-pointer hover-lighten bordered text-montserrat">
           <strong>{name}</strong>
         </Card.Body>
