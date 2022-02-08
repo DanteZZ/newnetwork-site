@@ -674,6 +674,10 @@ a, a:hover {
   }
 }
 
+img[src = "./assets/work.gif"] {
+  max-width:100%;
+}
+
 @media (max-width: 576px) {
   .speed-select {
     height: 158px;
