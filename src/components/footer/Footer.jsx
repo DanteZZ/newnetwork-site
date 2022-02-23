@@ -42,7 +42,7 @@ const Footer = ({updateCalculator}) => {
       childs: [
         {title:"Тех. поддержка", link:"/help"},
         {title:"Личный кабинет", link:"//lk.new-network.ru", target:"_blank"},
-        {title:"Оплата услуг", link:"//lk.new-network.ru", target:"_blank"},
+        {title:"Оплата услуг", link:"/pay", target:""},
         {title:"Помощь", link:"/help"},
       ]
     }
