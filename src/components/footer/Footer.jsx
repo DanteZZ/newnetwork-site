@@ -2,6 +2,7 @@ import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
 import logo from "../../assets/images/logo_footer.png";
+import payment from "../../assets/images/payment_footer.png";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
@@ -41,8 +42,9 @@ const Footer = ({updateCalculator}) => {
       title:"Клиентам",
       childs: [
         {title:"Тех. поддержка", link:"/help"},
-        {title:"Личный кабинет", link:"//lk.new-network.ru", target:"_blank"},
+        {title:"Личный кабинет", link:"http://lk.new-network.ru", target:"_blank"},
         {title:"Оплата услуг", link:"/pay", target:""},
+        {title:"Контакты", link:"/pages/contacts", target:""},
         {title:"Помощь", link:"/help"},
       ]
     }
@@ -57,8 +59,13 @@ const Footer = ({updateCalculator}) => {
               <ul class="list-unstyled">
                 {childs.map(({link,title,target, selectSpeed})=>
                   <li>
-                    <Link to={link} target={target} onClick={()=>{if (selectSpeed !== null) {updateCalculator(selectSpeed)} }} className="footer-link">{title}</Link>
-                  </li>)}
+                    {
+                    !target 
+                      ? (<Link to={link} target={target} onClick={()=>{if (selectSpeed !== null) {updateCalculator(selectSpeed)} }} className="footer-link">{title}</Link>)
+                      : (<a href={link} target={target} className="footer-link">{title}</a>)
+                    }
+                  </li>
+                  )}
               </ul>
             </Col>)
           }
@@ -69,6 +76,9 @@ const Footer = ({updateCalculator}) => {
           <Row className="pt-3 pb-3">
             <Col>
               <Link to="/"><img src={logo}/></Link>
+            </Col>
+            <Col>
+              <img src={payment}/>
             </Col>
             <Col className="text-end">
               © ООО “Новые Сети”, 2022 г.<br/>

@@ -103,7 +103,7 @@ const Calculator = ({
             <Card.Body className="pt-3">
               <center>
                 <strong className="h5 text-light">
-                  Проверьте, подключен ли ваш дом?
+                  Введите информация о себе
                 </strong>
               </center>
               <Form className="mt-2">

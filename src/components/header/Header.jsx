@@ -13,7 +13,8 @@ const Header = () => {
   const navs = [
     { to: "/", title: "Интернет" },
     { to: "/services", title: "Пакеты услуг" },
-    { to: "/pages/tv", title: "Онлайн-ТВ" },
+    { to: "/pay", title: "Оплата услуг" },
+    { to: "/pages/contacts", title: "Контакты" },
     { to: "/help", title: "Помощь" },
   ];
 
@@ -60,8 +61,7 @@ const Header = () => {
             className="d-inline-block dropdown-abonents"
           >
             <NavDropdown.Item
-              as={Link}
-              to="//lk.new-network.ru/"
+              href="http://lk.new-network.ru/"
               target="_blank"
             >
               Личный кабинет
