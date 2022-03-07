@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button, Spinner, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Switch from "react-switch";
@@ -9,7 +9,9 @@ import { connect } from "react-redux";
 import connector from "./connect.js";
 import dispatcher from "./dispatch.js";
 
-import { routers, tvs, pricelist } from "../../../configs/data.js";
+import { routers, tvs, pricelist, help_phone } from "../../../configs/data.js";
+
+import { order } from "../../../.api/api";
 
 const format = (number) =>
   new Intl.NumberFormat("ru-RU", { style: "currency", currency: "RUB" }).format(
@@ -30,6 +32,27 @@ const MaterialSwitch = (props) => (
   />
 );
 
+const ModalError = ({show,onClose, error}) => {
+  return (
+    <Modal
+        show={show}
+        onHide={onClose}
+        backdrop="static"
+        keyboard={false}
+      >
+      <Modal.Header closeButton>
+        <Modal.Title>Ошибка</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {error}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="primary" onClick={onClose}>Закрыть</Button>
+      </Modal.Footer>
+    </Modal>
+  )
+}
+
 const Calculator = ({
   address,
   name,
@@ -49,6 +72,9 @@ const Calculator = ({
   updateTvRent,
 }) => {
   const [prices] = useState(pricelist);
+  const [errors, setErrors] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error,setError] = useState(null)
 
   const receipt = useMemo(() => {
     const rub_m = "мес";
@@ -89,8 +115,65 @@ const Calculator = ({
       }
     }
 
-    return { list, all: format(all), all_rent: format(all_rent) };
+    return { list, _all:all, _all_rent: all_rent, all: format(all), all_rent: format(all_rent) };
   }, [prices, speed, router, router_rent, tv, tv_rent]);
+
+  const orderHandler = async () => {
+    if (!hasErrors()) {
+      const description = ["Имя: "+name,"Подключение интернета"];
+      const amount = receipt._all;
+      description.push(
+        !router ? 
+          "Без роутера"
+        :
+          "Роутер: "
+          + routers.find(e=>e.tag == router).title.replace("\n"," ")
+          + (router_rent ? " (аренда)" : "")
+      );
+
+      if (tv) {
+        description.push(
+          "ТВ-Приставка: "
+          + (tvs.find(e=>e.tag == tv).title.replace("\n"," "))
+          + (tv_rent ? " (аренда)" : "")
+        )
+      };
+
+      description.push("Ежемесячный платёж: "+format(receipt._all_rent));
+
+      const data = {
+        address,
+        phone,
+        description: description.join("\n"),
+        amount
+      };
+      
+      try {
+        setIsLoading(true);
+        await order(data);
+        setIsLoading(false);
+        window.location.href = "/pages/ordersuccess";
+      } catch (e) {
+        setIsLoading(false);
+        setError(`Извините, на данный момент онлайн подача заявки недоступна. Вы можете подать заявку по телефону горячей линии: ${help_phone}`);
+      }
+
+    } else {
+      window.scrollTo(0, 0)
+    };
+  }
+
+  const hasErrors = () => {
+    const ers = {};
+    if (name?.length < 5) { ers.name = "Введите полные ФИО"; };
+    if (address?.length < 5) { ers.address = "Введите полный адрес (Город, улица, дом, квартира)"; };
+    if (["","_"].indexOf(phone?.slice(-1)) >= 0) { ers.phone = "Введите корректный номер телефона"; };
+    if (Object.keys(ers).length) {
+      setErrors(ers);
+      return true;
+    }
+    return false;
+  };
 
   return (
     <Container>
@@ -103,7 +186,7 @@ const Calculator = ({
             <Card.Body className="pt-3">
               <center>
                 <strong className="h5 text-light">
-                  Введите информация о себе
+                  Введите информацию о себе
                 </strong>
               </center>
               <Form className="mt-2">
@@ -114,8 +197,9 @@ const Calculator = ({
                     className="bordered"
                     placeholder="Введите адрес вашего дома"
                     value={address}
-                    onChange={(v) => updateAddress(v.target.value)}
+                    onChange={(v) => {updateAddress(v.target.value); delete errors?.address }}
                   />
+                  { errors?.address && <Form.Text className="text-warning">{errors?.address}</Form.Text> }
                 </Form.Group>
                 <Row>
                   <Col md="6" sm="12">
@@ -126,8 +210,9 @@ const Calculator = ({
                         className="bordered"
                         placeholder="Введите ваше имя"
                         value={name}
-                        onChange={(v) => updateName(v.target.value)}
+                        onChange={(v) => {updateName(v.target.value); delete errors?.name }}
                       />
+                      { errors?.name && <Form.Text className="text-warning">{errors?.name}</Form.Text> }
                     </Form.Group>
                   </Col>
                   <Col>
@@ -140,8 +225,9 @@ const Calculator = ({
                         className="bordered"
                         placeholder="+7 (123) 456-78-90"
                         value={phone}
-                        onChange={(v) => updatePhone(v.target.value)}
+                        onChange={(v) => {updatePhone(v.target.value); delete errors?.phone }}
                       />
+                      { errors?.phone && <Form.Text className="text-warning">{errors?.phone}</Form.Text> }
                     </Form.Group>
                   </Col>
                 </Row>
@@ -363,8 +449,16 @@ const Calculator = ({
                 </div>
               </div>
               <center>
-                <Button className="btn-gradient-primary ps-4 pe-4 mt-3 receipt-order">
-                  Оформить заявку
+                <Button onClick={orderHandler} className="btn-gradient-primary ps-4 pe-4 mt-3 receipt-order">
+                  
+                  {error ? "Ошибка" : "Оформить заявку"}
+                  {isLoading && (<Spinner 
+                  className="ms-1"
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true" />)}
                 </Button>
               </center>
             </div>
@@ -387,6 +481,7 @@ const Calculator = ({
         </p>
         <hr />
       </Row>
+      <ModalError show={error} error={error} onClose={()=>setError(null)} />
     </Container>
   );
 };
