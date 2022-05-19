@@ -1,0 +1,8 @@
+{
+  "short_name": "Новые Сети",
+  "name": "Интернет в ваш дом",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#5679E7",
+  "background_color": "#ffffff"
+}
